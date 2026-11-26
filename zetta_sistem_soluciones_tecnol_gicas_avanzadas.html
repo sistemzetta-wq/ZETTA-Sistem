@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Zetta Sistem | Soluciones Tecnológicas Avanzadas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        zetta: {
+                            bg: '#030508',
+                            card: '#090D16',
+                            border: '#172235',
+                            blue: '#0088FF',
+                            cyan: '#00E5FF',
+                            silver: '#CBD5E1'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-8px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base fluid layout & zero horizontal overflow */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            background-color: #030508;
+            color: #F8FAFC;
+        }
+
+        /* Subtle neural tech grid */
+        .bg-tech-grid {
+            background-size: 36px 36px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 136, 255, 0.07) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 229, 255, 0.07) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(6, 10, 18, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(0, 229, 255, 0.16);
+        }
+
+        .glass-card {
+            background: linear-gradient(155deg, rgba(12, 18, 32, 0.9) 0%, rgba(6, 10, 18, 0.96) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(30, 41, 59, 0.85);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 229, 255, 0.55);
+            box-shadow: 0 12px 32px -10px rgba(0, 136, 255, 0.28);
+            transform: translateY(-4px);
+        }
+
+        /* Mobile Frame Preview Mode (Triggered by PC / Móvil switcher) */
+        #viewport-wrapper {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        body.mobile-preview-mode {
+            background-color: #010204;
+            background-image: radial-gradient(circle at 50% 20%, rgba(0, 136, 255, 0.14), transparent 60%);
+        }
+
+        body.mobile-preview-mode #viewport-wrapper {
+            max-width: 412px;
+            margin-top: 1.5rem;
+            margin-bottom: 2.5rem;
+            border: 3px solid #1E293B;
+            border-radius: 2.25rem;
+            box-shadow: 0 25px 70px -10px rgba(0, 229, 255, 0.25), 0 0 0 1px rgba(0, 229, 255, 0.15);
+            overflow-x: hidden;
+            background-color: #030508;
+            position: relative;
+        }
+
+        /* Force mobile stacking inside mobile-preview-mode even on wide PC monitors */
+        body.mobile-preview-mode .resp-grid-hero {
+            grid-template-columns: minmax(0, 1fr) !important;
+            text-align: center !important;
+            gap: 2rem !important;
+        }
+        body.mobile-preview-mode .resp-hero-copy {
+            text-align: center !important;
+            align-items: center !important;
+        }
+        body.mobile-preview-mode .resp-hero-actions {
+            flex-direction: column !important;
+            width: 100% !important;
+        }
+        body.mobile-preview-mode .resp-hero-actions > a {
+            width: 100% !important;
+        }
+        body.mobile-preview-mode .resp-grid-cards {
+            grid-template-columns: minmax(0, 1fr) !important;
+        }
+        body.mobile-preview-mode .resp-desktop-nav {
+            display: none !important;
+        }
+        body.mobile-preview-mode .resp-hero-title {
+            font-size: 2rem !important;
+            line-height: 1.18 !important;
+        }
+        body.mobile-preview-mode .resp-cta-row {
+            flex-direction: column !important;
+        }
+        body.mobile-preview-mode .resp-cta-row > a {
+            width: 100% !important;
+        }
+        body.mobile-preview-mode #floating-wa-btn {
+            position: sticky !important;
+            bottom: 1rem !important;
+            margin-left: auto !important;
+            margin-right: 1rem !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030508;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00E5FF;
+        }
+    </style>
+</head>
+<body class="bg-tech-grid min-h-screen flex flex-col antialiased selection:bg-cyan-500/30 selection:text-cyan-100">
+
+    <!-- Persistent View Switcher Bar (Always accessible on top for easy PC / Mobile testing) -->
+    <div class="bg-[#020306] border-b border-slate-800/90 py-1.5 px-3 sm:px-6 flex flex-wrap items-center justify-between gap-2 text-xs z-50">
+        <div class="flex items-center gap-2 text-slate-400">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+            </span>
+            <span id="ui-banner-text" class="truncate max-w-[230px] sm:max-w-md text-slate-300 font-medium">
+                Sistemas a medida, POS, seguridad escolar y tiendas virtuales
+            </span>
+        </div>
+
+        <!-- Visible PC / Mobile Mode Toggle Button -->
+        <div class="flex items-center gap-2 ml-auto">
+            <span class="hidden md:inline text-[11px] font-mono text-slate-500">Vista:</span>
+            <div class="inline-flex rounded-lg bg-slate-900 p-0.5 border border-slate-700/80 shadow-inner" role="group" aria-label="Cambiar formato de pantalla">
+                <button type="button" id="btn-view-pc" class="px-2.5 py-1 rounded-md text-[11px] font-semibold flex items-center gap-1.5 bg-gradient-to-r from-[#0088FF] to-[#00E5FF] text-slate-950 shadow transition-all">
+                    <i class="fa-solid fa-desktop"></i>
+                    <span>PC</span>
+                </button>
+                <button type="button" id="btn-view-mobile" class="px-2.5 py-1 rounded-md text-[11px] font-semibold flex items-center gap-1.5 text-slate-300 hover:text-white transition-all">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <span>Móvil</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Viewport Wrapper (Adapts cleanly between full PC width and centered Mobile frame) -->
+    <div id="viewport-wrapper" class="flex-grow flex flex-col relative">
+
+        <!-- Ambient Glow Orbs -->
+        <div class="fixed top-12 left-1/4 w-80 h-80 bg-[#0088FF]/15 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+        <div class="fixed bottom-10 right-1/4 w-80 h-80 bg-[#00E5FF]/10 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+
+        <!-- Navbar -->
+        <header class="sticky top-0 z-40 glass">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
+                
+                <!-- Custom Brand Logo matching uploaded ZETTA SISTEM design -->
+                <a href="#" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+                    <!-- Circular Black Emblem with Neural Z SVG -->
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black border border-cyan-400/35 flex items-center justify-center shadow-lg shadow-[#0088FF]/20 group-hover:border-[#00E5FF] transition-all shrink-0">
+                        <svg viewBox="0 0 100 100" class="w-8 h-8 sm:w-9 sm:h-9" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Zetta Sistem">
+                            <defs>
+                                <linearGradient id="zBlueGrad" x1="15" y1="20" x2="85" y2="85" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#0088FF"/>
+                                    <stop offset="100%" stop-color="#00E5FF"/>
+                                </linearGradient>
+                                <linearGradient id="zSilverGrad" x1="20" y1="15" x2="80" y2="85" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#E2E8F0"/>
+                                    <stop offset="100%" stop-color="#94A3B8"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Outer Silver Swoosh -->
+                            <path d="M22 24 C42 18, 62 18, 76 22 L42 74 C58 76, 72 72, 82 66" stroke="url(#zSilverGrad)" stroke-width="3.5" stroke-linecap="round"/>
+                            <!-- Main Blue/Cyan Z Ribbon -->
+                            <path d="M24 30 L74 26 L32 76 L78 72" stroke="url(#zBlueGrad)" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <!-- Inner Neural Network Nodes & Connections -->
+                            <line x1="36" y1="34" x2="58" y2="42" stroke="#00E5FF" stroke-width="1.5" opacity="0.9"/>
+                            <line x1="58" y1="42" x2="44" y2="56" stroke="#00E5FF" stroke-width="1.5" opacity="0.9"/>
+                            <line x1="44" y1="56" x2="64" y2="66" stroke="#00E5FF" stroke-width="1.5" opacity="0.9"/>
+                            <line x1="36" y1="34" x2="44" y2="56" stroke="#38BDF8" stroke-width="1.2" opacity="0.7"/>
+                            <line x1="58" y1="42" x2="64" y2="66" stroke="#38BDF8" stroke-width="1.2" opacity="0.7"/>
+                            <circle cx="36" cy="34" r="3.2" fill="#00E5FF"/>
+                            <circle cx="58" cy="42" r="3.2" fill="#FFFFFF"/>
+                            <circle cx="44" cy="56" r="3.2" fill="#00E5FF"/>
+                            <circle cx="64" cy="66" r="3.2" fill="#38BDF8"/>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col leading-none">
+                        <span class="font-extrabold text-base sm:text-xl tracking-wide text-[#0088FF]">
+                            ZETTA <span class="font-normal text-[#00E5FF]">SISTEM</span>
+                        </span>
+                        <span class="text-[8px] sm:text-[9.5px] font-mono uppercase tracking-[0.16em] text-slate-400 mt-1">
+                            Soluciones Tecnológicas Avanzadas
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="resp-desktop-nav hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
+                    <a href="#servicios" class="hover:text-[#00E5FF] transition-colors">¿Qué ofrecemos?</a>
+                    <a href="#ventajas" class="hover:text-[#00E5FF] transition-colors">Beneficios</a>
+                    <a href="#portafolio" class="hover:text-[#00E5FF] transition-colors">Demos</a>
+                    <a href="#contacto" class="hover:text-[#00E5FF] transition-colors">Contacto</a>
+                </nav>
+
+                <!-- Right Action Buttons -->
+                <div class="flex items-center gap-2 sm:gap-2.5">
+                    <!-- Admin Button -->
+                    <button id="btn-open-admin" class="px-2.5 py-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-[#00E5FF]/50 text-slate-300 hover:text-[#00E5FF] transition-all flex items-center gap-1.5 text-xs font-medium" title="Editar página en tiempo real">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span class="hidden sm:inline">Editar</span>
+                    </button>
+
+                    <!-- Direct WhatsApp CTA -->
+                    <a id="nav-whatsapp-btn" href="https://wa.me/584226321454" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-emerald-600/25 transition-all flex items-center gap-2 shrink-0">
+                        <i class="fa-brands fa-whatsapp text-base"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow">
+            
+            <!-- HERO SECTION -->
+            <section class="relative pt-10 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="resp-grid-hero grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                    
+                    <!-- Left Copy -->
+                    <div class="resp-hero-copy lg:col-span-7 space-y-6 text-center lg:text-left flex flex-col items-center lg:items-start">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#090D16] border border-[#0088FF]/40 text-xs font-medium text-[#00E5FF]">
+                            <i class="fa-solid fa-sparkles text-[#0088FF]"></i>
+                            <span>Tecnología fácil, rápida y hecha a tu medida</span>
+                        </div>
+
+                        <h1 id="ui-hero-title" class="resp-hero-title text-3xl sm:text-5xl lg:text-[3.35rem] font-extrabold tracking-tight text-white leading-[1.15]">
+                            Impulsa tu negocio con <span class="bg-gradient-to-r from-[#0088FF] via-[#00E5FF] to-cyan-200 bg-clip-text text-transparent">Sistemas Inteligentes</span> y Soluciones Virtuales
+                        </h1>
+
+                        <p id="ui-hero-subtitle" class="text-sm sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+                            En <strong class="text-white">Zetta Sistem</strong> creamos herramientas digitales prácticas y fáciles de usar: control de inventario, puntos de venta con facturación, aplicaciones de seguridad para escuelas y tiendas virtuales completas.
+                        </p>
+
+                        <!-- Action Buttons -->
+                        <div class="resp-hero-actions pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 w-full sm:w-auto">
+                            <a id="ui-hero-cta" href="https://wa.me/584226321454" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm sm:text-base shadow-xl shadow-emerald-600/25 transition-all flex items-center justify-center gap-2.5">
+                                <i class="fa-brands fa-whatsapp text-xl"></i>
+                                <span>Hablar por WhatsApp</span>
+                            </a>
+                            <a href="#servicios" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-[#090D16] hover:bg-slate-900 border border-slate-700 hover:border-[#00E5FF]/50 text-slate-200 font-semibold text-sm sm:text-base transition-all flex items-center justify-center gap-2">
+                                <span>Explorar Servicios</span>
+                                <i class="fa-solid fa-chevron-down text-xs text-[#00E5FF]"></i>
+                            </a>
+                        </div>
+
+                        <!-- Friendly Trust Badges -->
+                        <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-slate-400">
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-[#00E5FF]"></i> Soporte directo y amigable</span>
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-[#0088FF]"></i> Adaptado a PC y Celular</span>
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400"></i> Con Inteligencia Artificial</span>
+                        </div>
+                    </div>
+
+                    <!-- Right Visual Card (Interactive Showcase of Zetta Sistem Modules) -->
+                    <div class="lg:col-span-5 w-full">
+                        <div class="glass-card rounded-3xl p-5 sm:p-6 border border-[#0088FF]/30 shadow-2xl shadow-[#0088FF]/15 animate-float">
+                            <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800/90">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                                    <span class="text-xs font-mono text-slate-400 ml-1">Zetta Suite</span>
+                                </div>
+                                <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#0088FF]/15 text-[#00E5FF] border border-[#00E5FF]/30">
+                                    100% En Línea
+                                </span>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="p-3.5 rounded-2xl bg-[#04070D] border border-slate-800/90 flex items-center gap-3.5">
+                                    <div class="w-10 h-10 rounded-xl bg-[#0088FF]/15 border border-[#0088FF]/30 flex items-center justify-center text-[#0088FF] shrink-0">
+                                        <i class="fa-solid fa-boxes-stacked"></i>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="text-sm font-semibold text-white truncate">Inventario & Punto de Venta</p>
+                                        <p class="text-xs text-slate-400 truncate">Control de stock y facturación al instante</p>
+                                    </div>
+                                    <i class="fa-solid fa-check text-emerald-400 text-xs"></i>
+                                </div>
+
+                                <div class="p-3.5 rounded-2xl bg-[#04070D] border border-slate-800/90 flex items-center gap-3.5">
+                                    <div class="w-10 h-10 rounded-xl bg-[#00E5FF]/15 border border-[#00E5FF]/30 flex items-center justify-center text-[#00E5FF] shrink-0">
+                                        <i class="fa-solid fa-shield-halved"></i>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="text-sm font-semibold text-white truncate">Seguridad Escolar Inteligente</p>
+                                        <p class="text-xs text-slate-400 truncate">Control de acceso y alertas para colegios</p>
+                                    </div>
+                                    <i class="fa-solid fa-check text-emerald-400 text-xs"></i>
+                                </div>
+
+                                <div class="p-3.5 rounded-2xl bg-[#04070D] border border-slate-800/90 flex items-center gap-3.5">
+                                    <div class="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0">
+                                        <i class="fa-solid fa-store"></i>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="text-sm font-semibold text-white truncate">Tiendas & Espacios Virtuales</p>
+                                        <p class="text-xs text-slate-400 truncate">Vende por internet 24/7 sin límites</p>
+                                    </div>
+                                    <i class="fa-solid fa-check text-emerald-400 text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SERVICES SECTION -->
+            <section id="servicios" class="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/70">
+                <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                    <span class="text-xs font-mono uppercase tracking-widest text-[#00E5FF] font-semibold">Nuestras Soluciones</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold text-white">¿En qué podemos ayudarte hoy?</h2>
+                    <p class="text-slate-400 text-sm sm:text-base">
+                        Desarrollamos sistemas claros, rápidos y sin complicaciones técnicas para ti y tu equipo.
+                    </p>
+                </div>
+
+                <!-- Dynamic Services Grid (Responsive across Mobile, Tablet, PC) -->
+                <div id="services-grid" class="resp-grid-cards grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Populated dynamically via JS / Firestore -->
+                </div>
+            </section>
+
+            <!-- FRIENDLY WHY US SECTION -->
+            <section id="ventajas" class="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/70">
+                <div class="resp-grid-cards grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="p-6 rounded-2xl bg-[#090D16]/80 border border-slate-800/80 space-y-2.5">
+                        <div class="w-10 h-10 rounded-xl bg-[#0088FF]/15 text-[#0088FF] flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Fácil de usar</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Diseñamos pantallas limpias e intuitivas para que cualquier persona aprenda a usar el sistema en minutos.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-[#090D16]/80 border border-slate-800/80 space-y-2.5">
+                        <div class="w-10 h-10 rounded-xl bg-[#00E5FF]/15 text-[#00E5FF] flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Multidispositivo</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Revisa tus ventas, inventario o alertas desde tu teléfono, tablet o computadora en cualquier lugar.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-[#090D16]/80 border border-slate-800/80 space-y-2.5">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Acompañamiento real</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">No te dejamos solo después de entregar el sistema; te asesoramos paso a paso para que le saques el máximo provecho.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PORTFOLIO / DEMOS SECTION -->
+            <section id="portafolio" class="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/70">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+                    <div class="space-y-2">
+                        <span class="text-xs font-mono uppercase tracking-widest text-[#00E5FF] font-semibold">Portafolio & Demos</span>
+                        <h2 class="text-2xl sm:text-4xl font-bold text-white">Proyectos y Soluciones Activas</h2>
+                        <p class="text-slate-400 text-sm sm:text-base max-w-xl">Mira ejemplos reales de lo que construimos en Zetta Sistem.</p>
+                    </div>
+                    <a id="portfolio-ig-link" href="https://instagram.com/zettasistem" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-[#00E5FF] hover:text-cyan-300 transition-colors">
+                        <i class="fa-brands fa-instagram text-lg"></i>
+                        <span>Ver videos en Instagram</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Dynamic Portfolio Grid -->
+                <div id="portfolio-grid" class="resp-grid-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Populated dynamically via JS / Firestore -->
+                </div>
+            </section>
+
+            <!-- CONTACT SECTION -->
+            <section id="contacto" class="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+                <div class="glass-card rounded-3xl p-7 sm:p-12 text-center relative overflow-hidden border border-[#0088FF]/35">
+                    <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#00E5FF]/15 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10 space-y-5 max-w-xl mx-auto">
+                        <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-[#0088FF] to-[#00E5FF] flex items-center justify-center text-slate-950 text-2xl shadow-lg shadow-[#0088FF]/30">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <h2 class="text-2xl sm:text-4xl font-bold text-white">¿Conversamos sobre tu proyecto?</h2>
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                            Escríbenos directamente por WhatsApp sin compromiso. Cuéntanos qué necesitas para tu negocio, escuela o tienda virtual y te asesoramos hoy mismo.
+                        </p>
+                        
+                        <div class="resp-cta-row pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+                            <a id="contact-whatsapp-btn" href="https://wa.me/584226321454" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm sm:text-base shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2.5">
+                                <i class="fa-brands fa-whatsapp text-xl"></i>
+                                <span id="ui-wa-display">WhatsApp: 0422-6321454</span>
+                            </a>
+                            <a id="contact-instagram-btn" href="https://instagram.com/zettasistem" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-[#090D16] hover:bg-slate-800 border border-slate-700 hover:border-[#00E5FF]/50 text-white font-semibold text-sm sm:text-base transition-all flex items-center justify-center gap-2.5">
+                                <i class="fa-brands fa-instagram text-xl text-pink-400"></i>
+                                <span id="ui-ig-handle">@zettasistem</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-slate-800/80 bg-[#020306] py-8 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-slate-400 text-center sm:text-left">
+                <div class="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-2">
+                    <span class="font-bold text-[#0088FF]">ZETTA <span class="font-normal text-[#00E5FF]">SISTEM</span></span>
+                    <span class="hidden sm:inline text-slate-600">•</span>
+                    <span>Soluciones Tecnológicas Avanzadas &copy; <span id="current-year">2026</span></span>
+                </div>
+                <div class="flex items-center gap-5">
+                    <a id="footer-wa" href="https://wa.me/584226321454" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 transition-colors">0422-6321454</a>
+                    <a id="footer-ig" href="https://instagram.com/zettasistem" target="_blank" rel="noopener noreferrer" class="hover:text-[#00E5FF] transition-colors">Instagram</a>
+                    <button id="footer-admin-trigger" class="text-slate-600 hover:text-slate-400 transition-colors font-mono text-xs">Admin</button>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Floating WhatsApp Button (Always visible and friendly) -->
+        <a id="floating-wa-btn" href="https://wa.me/584226321454" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp al 04226321454" class="fixed bottom-5 right-5 z-40 group flex items-center gap-2.5 bg-emerald-600 hover:bg-emerald-500 text-white pl-4 pr-5 py-3.5 rounded-full shadow-2xl shadow-emerald-600/40 border border-emerald-400/30 transition-all hover:scale-105">
+            <i class="fa-brands fa-whatsapp text-2xl"></i>
+            <div class="flex flex-col leading-tight text-left">
+                <span class="text-[10px] uppercase tracking-wider text-emerald-100 font-semibold">¿Dudas? Escríbenos</span>
+                <span class="text-xs sm:text-sm font-bold">0422-6321454</span>
+            </div>
+        </a>
+
+    </div> <!-- End #viewport-wrapper -->
+
+    <!-- ===================================================================== -->
+    <!-- REAL-TIME ADMIN DRAWER / MODAL (NO ALERT/CONFIRM USED)                -->
+    <!-- ===================================================================== -->
+    <div id="admin-modal" class="fixed inset-0 z-50 hidden">
+        <!-- Backdrop -->
+        <div id="admin-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"></div>
+
+        <!-- Drawer Panel -->
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-4 sm:pl-10 z-50">
+            <div class="w-screen max-w-xl bg-[#070B14] border-l border-[#00E5FF]/30 shadow-2xl flex flex-col h-full">
+                
+                <!-- Drawer Header -->
+                <div class="px-5 py-4 border-b border-slate-800 flex items-center justify-between bg-[#04070D]">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-[#0088FF]/15 border border-[#00E5FF]/30 flex items-center justify-center text-[#00E5FF]">
+                            <i class="fa-solid fa-sliders"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">Editor en Vivo - Zetta Sistem</h3>
+                            <p class="text-xs text-slate-400">Tus cambios se actualizan al instante en todos los dispositivos</p>
+                        </div>
+                    </div>
+                    <button id="btn-close-admin" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- PIN Lock Screen -->
+                <div id="admin-lock-screen" class="p-8 flex-grow flex flex-col items-center justify-center text-center space-y-5">
+                    <div class="w-16 h-16 rounded-2xl bg-[#0088FF]/15 border border-[#0088FF]/35 flex items-center justify-center text-[#00E5FF] text-2xl">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div class="space-y-1.5 max-w-xs">
+                        <h4 class="text-lg font-bold text-white">Panel del Administrador</h4>
+                        <p class="text-xs text-slate-400">Ingresa tu PIN para editar textos, precios, WhatsApp o servicios. (PIN inicial: <span class="font-mono text-[#00E5FF]">2026</span>)</p>
+                    </div>
+                    <form id="admin-pin-form" class="w-full max-w-xs space-y-3">
+                        <input type="password" id="admin-pin-input" placeholder="Ingresa PIN (2026)" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 focus:border-[#00E5FF] focus:outline-none text-center font-mono text-white tracking-widest" required>
+                        <p id="pin-error-msg" class="text-xs text-rose-400 hidden">PIN incorrecto. Intenta nuevamente.</p>
+                        <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#0088FF] to-[#00E5FF] text-slate-950 font-bold text-sm shadow-lg shadow-[#0088FF]/25 transition-all">
+                            Entrar al Editor
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Admin Editor Content -->
+                <div id="admin-editor-content" class="hidden flex-grow overflow-y-auto p-5 sm:p-6 space-y-6">
+                    
+                    <!-- Tabs -->
+                    <div class="flex p-1 rounded-xl bg-slate-900 border border-slate-800 text-xs font-medium">
+                        <button type="button" data-tab="tab-general" class="admin-tab-btn flex-1 py-2.5 rounded-lg bg-[#0088FF]/20 text-[#00E5FF] border border-[#00E5FF]/30 transition-all">Textos & WhatsApp</button>
+                        <button type="button" data-tab="tab-services" class="admin-tab-btn flex-1 py-2.5 rounded-lg text-slate-400 hover:text-white transition-all">Servicios</button>
+                        <button type="button" data-tab="tab-portfolio" class="admin-tab-btn flex-1 py-2.5 rounded-lg text-slate-400 hover:text-white transition-all">Demos</button>
+                    </div>
+
+                    <!-- TAB 1: GENERAL & WHATSAPP -->
+                    <div id="tab-general" class="admin-tab-panel space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1.5">Frase Superior (Barra superior)</label>
+                            <input type="text" id="edit-banner" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-[#00E5FF] focus:outline-none text-sm text-white">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1.5">Título Principal</label>
+                            <textarea id="edit-hero-title" rows="2" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-[#00E5FF] focus:outline-none text-sm text-white"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1.5">Descripción Principal</label>
+                            <textarea id="edit-hero-subtitle" rows="3" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-[#00E5FF] focus:outline-none text-sm text-white"></textarea>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-300 mb-1.5">Número WhatsApp (Ej: 04226321454)</label>
+                                <input type="text" id="edit-whatsapp" placeholder="04226321454" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-[#00E5FF] focus:outline-none text-sm text-white font-mono">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-300 mb-1.5">Instagram (sin @)</label>
+                                <input type="text" id="edit-instagram" placeholder="zettasistem" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-[#00E5FF] focus:outline-none text-sm text-white font-mono">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1.5">PIN de Seguridad del Administrador</label>
+                            <input type="text" id="edit-admin-pin" placeholder="2026" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-[#00E5FF] focus:outline-none text-sm text-white font-mono">
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: SERVICES -->
+                    <div id="tab-services" class="admin-tab-panel hidden space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h4 class="text-sm font-semibold text-white">Tus Servicios</h4>
+                            <button type="button" id="btn-add-service" class="px-3 py-1.5 rounded-lg bg-[#0088FF]/20 hover:bg-[#0088FF]/30 border border-[#00E5FF]/40 text-[#00E5FF] text-xs font-medium flex items-center gap-1.5">
+                                <i class="fa-solid fa-plus"></i> Agregar Servicio
+                            </button>
+                        </div>
+                        <div id="admin-services-list" class="space-y-4"></div>
+                    </div>
+
+                    <!-- TAB 3: PORTFOLIO -->
+                    <div id="tab-portfolio" class="admin-tab-panel hidden space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h4 class="text-sm font-semibold text-white">Demos y Proyectos</h4>
+                            <button type="button" id="btn-add-project" class="px-3 py-1.5 rounded-lg bg-[#0088FF]/20 hover:bg-[#0088FF]/30 border border-[#00E5FF]/40 text-[#00E5FF] text-xs font-medium flex items-center gap-1.5">
+                                <i class="fa-solid fa-plus"></i> Agregar Demo
+                            </button>
+                        </div>
+                        <div id="admin-portfolio-list" class="space-y-4"></div>
+                    </div>
+
+                </div>
+
+                <!-- Drawer Footer -->
+                <div id="admin-footer" class="hidden px-5 py-4 border-t border-slate-800 bg-[#04070D] flex items-center justify-between gap-3">
+                    <span id="save-feedback" class="text-xs font-medium text-emerald-400 opacity-0 transition-opacity flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-check"></i> ¡Actualizado en vivo!
+                    </span>
+                    <button type="button" id="btn-save-all" class="px-5 py-3 rounded-xl bg-gradient-to-r from-[#0088FF] to-[#00E5FF] text-slate-950 font-bold text-sm shadow-lg shadow-[#0088FF]/25 transition-all flex items-center gap-2 ml-auto">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Guardar y Publicar</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Update Toast for Visitors -->
+    <div id="live-toast" class="fixed bottom-20 left-5 z-40 bg-[#090D16]/95 backdrop-blur px-4 py-3 rounded-xl border border-[#00E5FF]/40 shadow-xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#00E5FF] animate-ping"></span>
+        <span class="text-xs font-medium text-cyan-100">Información actualizada en vivo por Zetta Sistem</span>
+    </div>
+
+    <!-- Firebase & App Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Default Zetta Sistem Data with exact offerings & WhatsApp 04226321454
+        const DEFAULT_SITE_DATA = {
+            bannerText: "Sistemas de Inventario, POS, Seguridad Escolar y Tiendas Virtuales",
+            heroTitle: 'Impulsa tu negocio con <span class="bg-gradient-to-r from-[#0088FF] via-[#00E5FF] to-cyan-200 bg-clip-text text-transparent">Sistemas Inteligentes</span> y Soluciones Virtuales',
+            heroSubtitle: "En Zetta Sistem creamos herramientas digitales prácticas y fáciles de usar: control de inventario, puntos de venta con facturación, aplicaciones de seguridad para escuelas y tiendas virtuales completas.",
+            whatsapp: "04226321454",
+            instagram: "zettasistem",
+            adminPin: "2026",
+            services: [
+                {
+                    id: "srv-inventario",
+                    icon: "fa-boxes-stacked",
+                    title: "Sistemas de Inventario",
+                    description: "Lleva el control exacto de toda tu mercancía en tiempo real. Recibe alertas automáticas cuando un producto se esté agotando y evita pérdidas.",
+                    tag: "Control Total"
+                },
+                {
+                    id: "srv-pos",
+                    icon: "fa-cash-register",
+                    title: "Punto de Venta (POS) y Facturación",
+                    description: "Cobra rápido, emite facturas o tickets al instante, controla el cierre de caja diario y visualiza tus ganancias desde tu PC o celular.",
+                    tag: "Ventas & Caja"
+                },
+                {
+                    id: "srv-escuelas",
+                    icon: "fa-shield-halved",
+                    title: "Apps de Seguridad para Escuelas",
+                    description: "Plataformas modernas para instituciones educativas: registro seguro de entrada y salida de estudiantes, notificaciones a representantes y control de acceso.",
+                    tag: "Seguridad Escolar"
+                },
+                {
+                    id: "srv-tiendas",
+                    icon: "fa-store",
+                    title: "Tiendas Virtuales y Ecosistemas Web",
+                    description: "Creamos tu tienda online, catálogo interactivo y todo tipo de espacios virtuales para que tus clientes te encuentren y compren las 24 horas.",
+                    tag: "Mundo Virtual"
+                }
+            ],
+            portfolio: [
+                {
+                    id: "prj-1",
+                    category: "Comercio & Retail",
+                    title: "Sistema POS + Inventario Conectado",
+                    description: "Facturación ágil en mostrador sincronizada automáticamente con el almacén y reportes diarios en el teléfono del dueño.",
+                    link: "https://instagram.com/zettasistem"
+                },
+                {
+                    id: "prj-2",
+                    category: "Educación & Protección",
+                    title: "App Control Escolar Zetta",
+                    description: "Sistema de verificación rápida en puerta para colegios con aviso inmediato a padres y representantes.",
+                    link: "https://instagram.com/zettasistem"
+                },
+                {
+                    id: "prj-3",
+                    category: "E-Commerce & IA",
+                    title: "Tienda Virtual con Asistente Inteligente",
+                    description: "Catálogo web moderno conectado directo a WhatsApp para cerrar pedidos sin fricción desde cualquier dispositivo.",
+                    link: "https://instagram.com/zettasistem"
+                }
+            ]
+        };
+
+        let currentData = JSON.parse(JSON.stringify(DEFAULT_SITE_DATA));
+        let isInitialLoad = true;
+        let isAdminUnlocked = false;
+
+        // Format Venezuelan phone number (e.g. 04226321454 -> 584226321454 for wa.me & 0422-6321454 for display)
+        function formatWhatsAppLinks(rawNumber) {
+            const digits = (rawNumber || "04226321454").replace(/\D/g, '');
+            let waInternational = digits;
+            let displayFormatted = digits;
+
+            if (digits.startsWith('0') && digits.length === 11) {
+                waInternational = '58' + digits.substring(1);
+                displayFormatted = digits.substring(0, 4) + '-' + digits.substring(4);
+            } else if (digits.startsWith('58') && digits.length === 12) {
+                waInternational = digits;
+                displayFormatted = '0' + digits.substring(2, 5) + '-' + digits.substring(5);
+            }
+
+            const msg = encodeURIComponent("¡Hola Zetta Sistem! Vi su página web y me gustaría información sobre sus sistemas y soluciones.");
+            return {
+                url: `https://wa.me/${waInternational}?text=${msg}`,
+                display: displayFormatted
+            };
+        }
+
+        // Escape HTML helper
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Render Site Content
+        function renderSite(data) {
+            document.getElementById('ui-banner-text').textContent = data.bannerText || DEFAULT_SITE_DATA.bannerText;
+            document.getElementById('ui-hero-title').innerHTML = data.heroTitle || DEFAULT_SITE_DATA.heroTitle;
+            document.getElementById('ui-hero-subtitle').textContent = data.heroSubtitle || DEFAULT_SITE_DATA.heroSubtitle;
+
+            const waInfo = formatWhatsAppLinks(data.whatsapp);
+            document.getElementById('nav-whatsapp-btn').href = waInfo.url;
+            document.getElementById('ui-hero-cta').href = waInfo.url;
+            document.getElementById('contact-whatsapp-btn').href = waInfo.url;
+            document.getElementById('floating-wa-btn').href = waInfo.url;
+            document.getElementById('footer-wa').href = waInfo.url;
+            document.getElementById('footer-wa').textContent = waInfo.display;
+            document.getElementById('ui-wa-display').textContent = `WhatsApp: ${waInfo.display}`;
+            document.querySelector('#floating-wa-btn span:last-child').textContent = waInfo.display;
+
+            const cleanIg = (data.instagram || "zettasistem").replace(/^@/, '');
+            const igUrl = `https://instagram.com/${cleanIg}`;
+            document.getElementById('contact-instagram-btn').href = igUrl;
+            document.getElementById('portfolio-ig-link').href = igUrl;
+            document.getElementById('footer-ig').href = igUrl;
+            document.getElementById('ui-ig-handle').textContent = `@${cleanIg}`;
+
+            // Render Services
+            const servicesGrid = document.getElementById('services-grid');
+            servicesGrid.innerHTML = '';
+            (data.services || []).forEach(srv => {
+                const serviceWaMsg = encodeURIComponent(`¡Hola Zetta Sistem! Me interesa conocer más sobre: ${srv.title}`);
+                const serviceWaUrl = `https://wa.me/${waInfo.url.split('wa.me/')[1].split('?')[0]}?text=${serviceWaMsg}`;
+
+                const card = document.createElement('div');
+                card.className = 'glass-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between space-y-5';
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0088FF]/20 to-[#00E5FF]/20 border border-[#00E5FF]/35 flex items-center justify-center text-[#00E5FF] text-xl shrink-0">
+                                <i class="fa-solid ${escapeHtml(srv.icon || 'fa-microchip')}"></i>
+                            </div>
+                            <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-[#04070D] border border-slate-700/80 text-slate-300">
+                                ${escapeHtml(srv.tag || 'Zetta')}
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">${escapeHtml(srv.title)}</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">${escapeHtml(srv.description)}</p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-800/70">
+                        <a href="${serviceWaUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>Solicitar información</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                `;
+                servicesGrid.appendChild(card);
+            });
+
+            // Render Portfolio
+            const portfolioGrid = document.getElementById('portfolio-grid');
+            portfolioGrid.innerHTML = '';
+            (data.portfolio || []).forEach(prj => {
+                const card = document.createElement('div');
+                card.className = 'glass-card rounded-2xl p-6 flex flex-col justify-between space-y-4 group';
+                card.innerHTML = `
+                    <div class="space-y-2.5">
+                        <span class="text-xs font-mono text-[#00E5FF] font-semibold">${escapeHtml(prj.category || 'Sistema')}</span>
+                        <h3 class="text-lg font-bold text-white">${escapeHtml(prj.title)}</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">${escapeHtml(prj.description)}</p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                        <span class="text-[11px] font-mono text-emerald-400 flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Disponible
+                        </span>
+                        <a href="${escapeHtml(prj.link || igUrl)}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-white hover:text-[#00E5FF] flex items-center gap-1.5 transition-colors">
+                            <span>Ver ejemplo</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+                `;
+                portfolioGrid.appendChild(card);
+            });
+        }
+
+        // =====================================================================
+        // VISIBLE PC / MÓVIL VIEW SWITCHER LOGIC
+        // =====================================================================
+        const btnViewPc = document.getElementById('btn-view-pc');
+        const btnViewMobile = document.getElementById('btn-view-mobile');
+
+        function setViewMode(mode) {
+            if (mode === 'mobile') {
+                document.body.classList.add('mobile-preview-mode');
+                btnViewMobile.classList.add('bg-gradient-to-r', 'from-[#0088FF]', 'to-[#00E5FF]', 'text-slate-950', 'shadow');
+                btnViewMobile.classList.remove('text-slate-300');
+                btnViewPc.classList.remove('bg-gradient-to-r', 'from-[#0088FF]', 'to-[#00E5FF]', 'text-slate-950', 'shadow');
+                btnViewPc.classList.add('text-slate-300');
+            } else {
+                document.body.classList.remove('mobile-preview-mode');
+                btnViewPc.classList.add('bg-gradient-to-r', 'from-[#0088FF]', 'to-[#00E5FF]', 'text-slate-950', 'shadow');
+                btnViewPc.classList.remove('text-slate-300');
+                btnViewMobile.classList.remove('bg-gradient-to-r', 'from-[#0088FF]', 'to-[#00E5FF]', 'text-slate-950', 'shadow');
+                btnViewMobile.classList.add('text-slate-300');
+            }
+        }
+
+        btnViewPc.addEventListener('click', () => setViewMode('pc'));
+        btnViewMobile.addEventListener('click', () => setViewMode('mobile'));
+
+        // Automatically highlight Mobile button if opened natively on a small phone screen
+        if (window.innerWidth < 640) {
+            btnViewMobile.classList.add('bg-gradient-to-r', 'from-[#0088FF]', 'to-[#00E5FF]', 'text-slate-950');
+            btnViewMobile.classList.remove('text-slate-300');
+            btnViewPc.classList.remove('bg-gradient-to-r', 'from-[#0088FF]', 'to-[#00E5FF]', 'text-slate-950');
+            btnViewPc.classList.add('text-slate-300');
+        }
+
+        // =====================================================================
+        // FIREBASE REAL-TIME SYNCHRONIZATION
+        // =====================================================================
+        let db = null;
+        let siteDocRef = null;
+        let firebaseReady = false;
+        const liveToast = document.getElementById('live-toast');
+
+        function showLiveUpdateToast() {
+            liveToast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                liveToast.classList.add('translate-y-24', 'opacity-0');
+            }, 3500);
+        }
+
+        async function initFirebaseSync() {
+            try {
+                if (typeof __firebase_config === 'undefined') {
+                    renderSite(currentData);
+                    return;
+                }
+
+                const firebaseConfig = JSON.parse(__firebase_config);
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'zetta-sistem-app';
+
+                const app = initializeApp(firebaseConfig);
+                const auth = getAuth(app);
+                db = getFirestore(app);
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                if (!auth.currentUser) return;
+
+                siteDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'zetta_sistem_config', 'main');
+                firebaseReady = true;
+
+                onSnapshot(siteDocRef, (snapshot) => {
+                    if (snapshot.exists()) {
+                        const remoteData = snapshot.data();
+                        currentData = {
+                            ...DEFAULT_SITE_DATA,
+                            ...remoteData
+                        };
+                        renderSite(currentData);
+
+                        if (!isInitialLoad) {
+                            showLiveUpdateToast();
+                        }
+                        if (isAdminUnlocked) {
+                            populateAdminForm(currentData);
+                        }
+                    } else {
+                        renderSite(currentData);
+                        setDoc(siteDocRef, currentData).catch(err => console.error("Error inicializando datos:", err));
+                    }
+                    isInitialLoad = false;
+                }, (error) => {
+                    console.error("Error en sincronización:", error);
+                    renderSite(currentData);
+                });
+
+            } catch (err) {
+                console.error("Error Firebase:", err);
+                renderSite(currentData);
+            }
+        }
+
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        renderSite(currentData);
+        initFirebaseSync();
+
+        // =====================================================================
+        // ADMIN EDITOR DRAWER LOGIC
+        // =====================================================================
+        const adminModal = document.getElementById('admin-modal');
+        const adminBackdrop = document.getElementById('admin-backdrop');
+        const adminLockScreen = document.getElementById('admin-lock-screen');
+        const adminEditorContent = document.getElementById('admin-editor-content');
+        const adminFooter = document.getElementById('admin-footer');
+        const adminPinForm = document.getElementById('admin-pin-form');
+        const adminPinInput = document.getElementById('admin-pin-input');
+        const pinErrorMsg = document.getElementById('pin-error-msg');
+
+        function openAdminModal() {
+            adminModal.classList.remove('hidden');
+            if (isAdminUnlocked) {
+                showUnlockedEditor();
+            } else {
+                adminPinInput.value = '';
+                pinErrorMsg.classList.add('hidden');
+                setTimeout(() => adminPinInput.focus(), 100);
+            }
+        }
+
+        function closeAdminModal() {
+            adminModal.classList.add('hidden');
+        }
+
+        function showUnlockedEditor() {
+            isAdminUnlocked = true;
+            adminLockScreen.classList.add('hidden');
+            adminEditorContent.classList.remove('hidden');
+            adminFooter.classList.remove('hidden');
+            populateAdminForm(currentData);
+        }
+
+        document.getElementById('btn-open-admin').addEventListener('click', openAdminModal);
+        document.getElementById('footer-admin-trigger').addEventListener('click', openAdminModal);
+        document.getElementById('btn-close-admin').addEventListener('click', closeAdminModal);
+        adminBackdrop.addEventListener('click', closeAdminModal);
+
+        adminPinForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const entered = adminPinInput.value.trim();
+            const validPin = currentData.adminPin || "2026";
+            if (entered === validPin) {
+                pinErrorMsg.classList.add('hidden');
+                showUnlockedEditor();
+            } else {
+                pinErrorMsg.classList.remove('hidden');
+                adminPinInput.value = '';
+                adminPinInput.focus();
+            }
+        });
+
+        // Tabs
+        const tabButtons = document.querySelectorAll('.admin-tab-btn');
+        const tabPanels = document.querySelectorAll('.admin-tab-panel');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-tab');
+                tabButtons.forEach(b => {
+                    b.classList.remove('bg-[#0088FF]/20', 'text-[#00E5FF]', 'border', 'border-[#00E5FF]/30');
+                    b.classList.add('text-slate-400');
+                });
+                btn.classList.add('bg-[#0088FF]/20', 'text-[#00E5FF]', 'border', 'border-[#00E5FF]/30');
+                btn.classList.remove('text-slate-400');
+
+                tabPanels.forEach(panel => {
+                    panel.classList.toggle('hidden', panel.id !== targetId);
+                });
+            });
+        });
+
+        let draftServices = [];
+        let draftPortfolio = [];
+
+        function populateAdminForm(data) {
+            document.getElementById('edit-banner').value = data.bannerText || '';
+            document.getElementById('edit-hero-title').value = data.heroTitle || '';
+            document.getElementById('edit-hero-subtitle').value = data.heroSubtitle || '';
+            document.getElementById('edit-whatsapp').value = data.whatsapp || '04226321454';
+            document.getElementById('edit-instagram').value = data.instagram || 'zettasistem';
+            document.getElementById('edit-admin-pin').value = data.adminPin || '2026';
+
+            draftServices = JSON.parse(JSON.stringify(data.services || []));
+            draftPortfolio = JSON.parse(JSON.stringify(data.portfolio || []));
+
+            renderAdminServicesList();
+            renderAdminPortfolioList();
+        }
+
+        function renderAdminServicesList() {
+            const container = document.getElementById('admin-services-list');
+            container.innerHTML = '';
+
+            draftServices.forEach((srv, idx) => {
+                const item = document.createElement('div');
+                item.className = 'p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3';
+                item.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-[#00E5FF]">Servicio #${idx + 1}</span>
+                        <button type="button" data-idx="${idx}" class="btn-del-service text-xs text-rose-400 hover:text-rose-300">
+                            <i class="fa-solid fa-trash"></i> Eliminar
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" data-idx="${idx}" data-field="title" value="${escapeHtml(srv.title)}" placeholder="Título" class="srv-input px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+                        <input type="text" data-idx="${idx}" data-field="tag" value="${escapeHtml(srv.tag)}" placeholder="Etiqueta" class="srv-input px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+                    </div>
+                    <textarea rows="2" data-idx="${idx}" data-field="description" placeholder="Descripción" class="srv-input w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">${escapeHtml(srv.description)}</textarea>
+                `;
+                container.appendChild(item);
+            });
+
+            container.querySelectorAll('.srv-input').forEach(el => {
+                el.addEventListener('input', (e) => {
+                    const idx = Number(e.target.getAttribute('data-idx'));
+                    const field = e.target.getAttribute('data-field');
+                    draftServices[idx][field] = e.target.value;
+                });
+            });
+
+            container.querySelectorAll('.btn-del-service').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = Number(e.currentTarget.getAttribute('data-idx'));
+                    draftServices.splice(idx, 1);
+                    renderAdminServicesList();
+                });
+            });
+        }
+
+        document.getElementById('btn-add-service').addEventListener('click', () => {
+            draftServices.push({
+                id: 'srv-' + Date.now(),
+                icon: 'fa-microchip',
+                title: 'Nuevo Servicio',
+                description: 'Describe de forma sencilla cómo este sistema ayuda a tus clientes.',
+                tag: 'Nuevo'
+            });
+            renderAdminServicesList();
+        });
+
+        function renderAdminPortfolioList() {
+            const container = document.getElementById('admin-portfolio-list');
+            container.innerHTML = '';
+
+            draftPortfolio.forEach((prj, idx) => {
+                const item = document.createElement('div');
+                item.className = 'p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3';
+                item.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-[#00E5FF]">Demo #${idx + 1}</span>
+                        <button type="button" data-idx="${idx}" class="btn-del-project text-xs text-rose-400 hover:text-rose-300">
+                            <i class="fa-solid fa-trash"></i> Eliminar
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" data-idx="${idx}" data-field="title" value="${escapeHtml(prj.title)}" placeholder="Nombre" class="prj-input px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+                        <input type="text" data-idx="${idx}" data-field="category" value="${escapeHtml(prj.category)}" placeholder="Categoría" class="prj-input px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+                    </div>
+                    <textarea rows="2" data-idx="${idx}" data-field="description" placeholder="Descripción" class="prj-input w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">${escapeHtml(prj.description)}</textarea>
+                    <input type="url" data-idx="${idx}" data-field="link" value="${escapeHtml(prj.link)}" placeholder="Link de Instagram o Demo" class="prj-input w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-[#00E5FF] font-mono">
+                `;
+                container.appendChild(item);
+            });
+
+            container.querySelectorAll('.prj-input').forEach(el => {
+                el.addEventListener('input', (e) => {
+                    const idx = Number(e.target.getAttribute('data-idx'));
+                    const field = e.target.getAttribute('data-field');
+                    draftPortfolio[idx][field] = e.target.value;
+                });
+            });
+
+            container.querySelectorAll('.btn-del-project').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = Number(e.currentTarget.getAttribute('data-idx'));
+                    draftPortfolio.splice(idx, 1);
+                    renderAdminPortfolioList();
+                });
+            });
+        }
+
+        document.getElementById('btn-add-project').addEventListener('click', () => {
+            draftPortfolio.push({
+                id: 'prj-' + Date.now(),
+                category: 'Demo Zetta',
+                title: 'Nuevo Proyecto',
+                description: 'Breve descripción del sistema o tienda virtual creada.',
+                link: 'https://instagram.com/zettasistem'
+            });
+            renderAdminPortfolioList();
+        });
+
+        // Save & Sync
+        const btnSaveAll = document.getElementById('btn-save-all');
+        const saveFeedback = document.getElementById('save-feedback');
+
+        btnSaveAll.addEventListener('click', async () => {
+            const updatedPayload = {
+                bannerText: document.getElementById('edit-banner').value.trim(),
+                heroTitle: document.getElementById('edit-hero-title').value.trim(),
+                heroSubtitle: document.getElementById('edit-hero-subtitle').value.trim(),
+                whatsapp: document.getElementById('edit-whatsapp').value.trim() || "04226321454",
+                instagram: document.getElementById('edit-instagram').value.trim() || "zettasistem",
+                adminPin: document.getElementById('edit-admin-pin').value.trim() || "2026",
+                services: draftServices,
+                portfolio: draftPortfolio,
+                updatedAt: new Date().toISOString()
+            };
+
+            btnSaveAll.disabled = true;
+            btnSaveAll.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Guardando...</span>';
+
+            try {
+                if (firebaseReady && siteDocRef) {
+                    await setDoc(siteDocRef, updatedPayload);
+                } else {
+                    currentData = updatedPayload;
+                    renderSite(currentData);
+                }
+
+                saveFeedback.classList.remove('opacity-0');
+                setTimeout(() => saveFeedback.classList.add('opacity-0'), 3000);
+            } catch (err) {
+                console.error("Error al guardar:", err);
+            } finally {
+                btnSaveAll.disabled = false;
+                btnSaveAll.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> <span>Guardar y Publicar</span>';
+            }
+        });
+    </script>
+</body>
+</html>
